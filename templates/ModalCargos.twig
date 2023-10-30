@@ -1,0 +1,89 @@
+
+
+<div class="modal fade" id="inserirCargo" tabindex="-1" aria-labelledby="meuModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="meuModalLabel">Inserir Cargo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="cargo" class="form-label">Cargo</label>
+                        <input type="text" class="form-control" id="cargo" name="cargo" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descricao" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="descricao" name="descricao" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="inserirCargo">Inserir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if listaDeCargos is not empty %}
+    {% for cargo in listaDeCargos %}
+        <div class="modal fade" id="visualizarCargo-{{ cargo.getId() }}" tabindex="-1"
+             aria-labelledby="confirmDeleteLabel{{ cargo.getId() }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteLabel{{ cargo.getId() }}">
+                            Funcionário: {{ cargo.getTitulo() }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <div class="mb-3">
+                                <label for="id" class="form-label">ID</label>
+                                <input type="text" class="form-control" id="id" name="id" value="{{ cargo.getId() }}" readonly required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Cargo</label>
+                                <input type="text" class="form-control" id="titulo" name="titulo" value="{{ cargo.getTitulo() }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="descricao" class="form-label">Descrição</label>
+                                <textarea class="form-control" id="descricao" name="descricao" required>{{ cargo.getDescricao() }}</textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" name="salvarAlteracoes">Salvar Alterações</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+{% if listaDeCargos is not empty %}
+    {% for cargo in listaDeCargos %}
+        <div class="modal fade" id="deletarCargo-{{ cargo.getId() }}" tabindex="-1" aria-labelledby="confirmDeleteLabel{{ cargo.getId() }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteLabel{{ cargo.getId() }}">Confirmar Exclusão</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        Tem certeza de que deseja excluir o Cargo <strong>{{ cargo.getTitulo() }}</strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <form method="post">
+                            <input type="hidden" name="id" value="{{ cargo.getId() }}">
+                            <button type="submit" class="btn btn-danger" name="deletarCargo">Excluir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

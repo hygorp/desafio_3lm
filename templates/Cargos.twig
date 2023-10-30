@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Cargos</title>
+    <link href="../assets/bootstrap-5.3.2/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="../assets/bootstrap-5.3.2/bootstrap.min.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+{{ include('Nav.twig') }}
+{{ include('ModalCargos.twig') }}
+
+<div class="container mt-5">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-center ">
+                <h5 class="card-title">Listagem de Cargos</h5>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="d-flex justify-content-center">
+                <div class="d-flex column-gap-3">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#inserirCargo">Inserir
+                        Cargo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Título</th>
+                <th scope="col">Descrição</th>
+                <th scope="col" class="col-sm-2">Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if listaDeCargos is not empty %}
+                {% for cargo in listaDeCargos %}
+                    <tr>
+                        <td>{{ cargo.getId() }}</td>
+                        <td>{{ cargo.getTitulo() }}</td>
+                        <td>{{ cargo.getDescricao() }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#visualizarCargo-{{ cargo.getId() }}">Editar
+                            </button>
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#deletarCargo-{{ cargo.getId() }}">Excluir
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

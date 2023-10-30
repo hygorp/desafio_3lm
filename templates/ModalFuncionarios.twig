@@ -1,0 +1,160 @@
+<div class="modal fade" id="inserirFuncionario" tabindex="-1" aria-labelledby="meuModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="meuModalLabel">Inserir Funcionário</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col">
+                                <label for="nome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="nome" name="nome" required>
+                            </div>
+                            <div class="col">
+                                <label for="sobrenome" class="form-label">Sobrenome</label>
+                                <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col">
+                                <label for="nascimento" class="form-label">Nascimento</label>
+                                <input type="date" class="form-control" id="nascimento" name="nascimento" required>
+                            </div>
+                            <div class="col">
+                                <label for="salario" class="form-label">Salário</label>
+                                <input type="text" class="form-control" id="salario" name="salario" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col">
+                                <label for="cargo" class="form-label">Cargo</label>
+                                <select class="form-select" id="cargo" name="cargo">
+                                    {% if listaDeCargos is not empty %}
+                                        {% for cargo in listaDeCargos %}
+                                            <option value="{{ cargo.getId() }}">{{ cargo.getTitulo() }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" name="inserirFuncionario">Inserir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if listaDeFuncionarios is not empty %}
+    {% for funcionario in listaDeFuncionarios %}
+        <div class="modal fade" id="visualizarFuncionario-{{ funcionario.getMatricula() }}" tabindex="-1"
+             aria-labelledby="confirmDeleteLabel{{ funcionario.getId() }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteLabel{{ funcionario.getId() }}">
+                            Funcionário: {{ funcionario.getNome() }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="matricula" class="form-label">Matricula</label>
+                                        <input type="text" class="form-control" id="matricula" name="matricula"
+                                               value="{{ funcionario.getMatricula() }}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="nome" class="form-label">Nome</label>
+                                        <input type="text" class="form-control" id="nome" name="nome"
+                                               value="{{ funcionario.getNome() }}" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="sobrenome" class="form-label">Sobrenome</label>
+                                        <input type="text" class="form-control" id="sobrenome" name="sobrenome"
+                                               value="{{ funcionario.getSobrenome() }}" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="nascimento" class="form-label">Nascimento</label>
+                                        <input type="date" class="form-control" id="nascimento" name="nascimento"
+                                               value="{{ funcionario.getNascimento() }}" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="salario" class="form-label">Salário</label>
+                                        <input type="text" class="form-control" id="salario" name="salario"
+                                               value="{{ funcionario.getSalario() }}" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="cargo" class="form-label">Cargo</label>
+                                        <select class="form-select" id="cargo" name="cargo">
+                                            <option selected value="{{ funcionario.getCargoId() }}">{{ funcionario.getCargoTitulo() }}</option>
+                                            {% if listaDeCargos is not empty %}
+                                                {% for cargo in listaDeCargos %}
+                                                    <option value="{{ cargo.getId() }}">{{ cargo.getTitulo() }}</option>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" name="salvarAlteracoes">Salvar Alterações</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+{% if listaDeFuncionarios is not empty %}
+    {% for funcionario in listaDeFuncionarios %}
+        <div class="modal fade" id="deletarFuncionario-{{ funcionario.getMatricula() }}" tabindex="-1" aria-labelledby="confirmDeleteLabel{{ funcionario.getMatricula() }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteLabel{{ funcionario.getMatricula() }}">Confirmar Exclusão</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        Tem certeza de que deseja excluir o funcionário <strong>{{ funcionario.getNome() }}</strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <form method="post">
+                            <input type="hidden" name="matricula" value="{{ funcionario.getMatricula() }}">
+                            <button type="submit" class="btn btn-danger" name="deletarFuncionario">Excluir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
