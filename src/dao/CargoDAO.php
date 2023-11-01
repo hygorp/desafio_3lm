@@ -30,26 +30,6 @@ class CargoDAO {
         }
     }
 
-    public function listarCargoPorId(int $id) : array {
-        $sql = "SELECT * FROM cargo WHERE id = {$id}";
-
-        $result = mysqli_query($this->conexao->getConexao(), $sql);
-
-        if ($result) {
-            $cargos = [];
-            while ($row = mysqli_fetch_assoc($result)) {
-                $cargo = new Cargo();
-                $cargo->setId($row['id']);
-                $cargo->setTitulo($row['titulo']);
-                $cargo->setDescricao($row['descricao']);
-                $cargos[] = $cargo;
-            }
-            return $cargos;
-        } else {
-            throw new RuntimeException("Erro ao listar cargos");
-        }
-    }
-
     public function inserirCargo(Cargo $cargo) : bool {
         $sql = "INSERT INTO cargo (titulo, descricao) VALUES (?, ?)";
 
