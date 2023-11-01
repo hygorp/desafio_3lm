@@ -14,10 +14,6 @@ class CargoController {
         return $this->cargoDAO->listarCargos();
     }
 
-    public function listarCargoPorId(int $id): array {
-        return $this->cargoDAO->listarCargoPorId($id);
-    }
-
     public function inserirCargo(Cargo $cargo) : bool {
         return $this->cargoDAO->inserirCargo($cargo);
     }

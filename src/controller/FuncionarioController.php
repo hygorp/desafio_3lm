@@ -15,10 +15,6 @@ class FuncionarioController {
         return $this->funcionarioDAO->listarFuncionarios();
     }
 
-    public function listarFuncionarioPorMatricula(int $matricula) : array {
-        return $this->funcionarioDAO->listarFuncionarios($matricula);
-    }
-
     public function inserirFuncionario(Funcionario $funcionario) : bool {
         return $this->funcionarioDAO->inserirFuncionario($funcionario);
     }
