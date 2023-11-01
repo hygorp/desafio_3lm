@@ -3,6 +3,6 @@
         "ext-mysqli": "*",
         "vlucas/phpdotenv": "^5.5",
         "twig/twig": "^3.7",
-        "quilhasoft/jasperphp": "dev-master"
+        "geekcom/phpjasper": "^3.1"
     }
 }
